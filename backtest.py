@@ -3,7 +3,7 @@ import io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 import time  
-from datetime import datetime
+from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import pandas as pd
 from pandas.plotting import register_matplotlib_converters
@@ -25,10 +25,10 @@ def main():
     print('Подключение установлено')
 
     try:
-        while 1:
-            pasutil(data_load(Symbol.symbol_EURUSD))
-            print('ожидает...', flush=True)
-            time.sleep(3600)
+        # год месяц число час
+        end_date = datetime(2025, 7, 24, 17) + timedelta(hours=3)
+        data = data_load(Symbol.symbol_EURUSD, end_date)
+        pasutil(data, 0)
 
     except KeyboardInterrupt:
         print("Остановка по запросу пользователя")
@@ -37,5 +37,5 @@ def main():
 
 
 if __name__ == "__main__":
-    print("Запуск торгового бота...")
+    print("Запуск торгового бота в режиме бектеста")
     main()
