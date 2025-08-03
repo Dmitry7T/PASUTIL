@@ -24,8 +24,8 @@ def make_order(symbol, order_type, price, lot, deviation, stoploss, takeprofit):
 
     # Отправка ордера
     try:
-        result = mt5.order_send(request)
+        mt5.order_send(request)
         print(f"Ордер выставлен: {datetime.now()}")
-    except Exception  as e:
+    except Exception as e:
         print('ошибка выставления ордера')
         print(e)
