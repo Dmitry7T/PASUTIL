@@ -8,18 +8,18 @@ from Symbols import Symbol
 
 def make_order(symbol, order_type, price, lot, deviation, stoploss, takeprofit):
     request = {
-        "action": mt5.TRADE_ACTION_DEAL,
+        "action": mt5.TRADE_ACTION_PENDING,
         "symbol": symbol,
         "volume": lot,
         "type": order_type,
         "price": price,
+        "sl": stoploss,       # Stop Loss (0 - без стоп-лосса)
+        "tp": takeprofit,       # Take Profit (0 - без тейк-профита)
         "deviation": deviation,
-        "sl": stoploss,
-        "tp": takeprofit,
         "magic": 123456,
         "comment": "pasutil order",
-        "type_time": mt5.ORDER_TIME_GTC,
-        "type_filling": mt5.ORDER_FILLING_FOK,
+        "type_time": mt5.ORDER_TIME_GTC,  # Срок действия - до отмены
+        "type_filling": mt5.ORDER_FILLING_FOK,  # Тип исполнения
     }
 
     # Отправка ордера

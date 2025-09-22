@@ -10,8 +10,8 @@ import pandas as pd
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 import MetaTrader5 as mt5
-from Symbols import Symbol
-from trading_engine import pasutil_XAUUSD
+from pasutil1.Symbols import Symbol
+from pasutil1.trading_engine import pasutil_XAUUSD
  
 # запросим статус и параметры подключения
 #print(mt5.terminal_info())
@@ -27,18 +27,18 @@ def pasutil_XAUUSD_main_cycle():
     try:
         while 1:
             try:
-                if datetime.time(10, 0) <= datetime.datetime.now().time() <= datetime.time(18, 30) \
-                and datetime.datetime.now().weekday() < 6:
+                if datetime.time(11, 0) <= datetime.datetime.now().time() <= datetime.time(18, 30) \
+                and datetime.datetime.now().weekday() < 5:
                     orders = mt5.orders_get(symbol=Symbol.symbol_XAUUSD)
-                    if orders is None:
-                        pasutil_XAUUSD()
-                        print('ожидает...', flush=True)
-                        time.sleep(900)
+                    #if orders is None:
+                    pasutil_XAUUSD()
+                    print('ожидает...', flush=True)
+                    time.sleep(900)
                 else:
                     print('ожидает начала сессии', flush=True)
                     time.sleep(1800)
             except Exception as e:
-                print(e)
+                print(e, flush=True)
                 time.sleep(900)
                 continue
 

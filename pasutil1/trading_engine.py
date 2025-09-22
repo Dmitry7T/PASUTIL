@@ -17,8 +17,9 @@ def get_candle_type(candle):
 
 
 # пасутил ЗОЛОТО/ДОЛЛАР            
-def pasutil_XAUUSD(mode = 1, rates = data_load(Symbol.symbol_XAUUSD)):
-    #print(rates)
+def pasutil_XAUUSD(mode = 1, rates = None):
+    if rates is None:
+        rates = data_load(Symbol.symbol_XAUUSD)
     candle_first_index = -2 + (1 - mode)
     candle0 = rates[candle_first_index]
     candle1 = rates[candle_first_index - 1]
@@ -33,12 +34,14 @@ def pasutil_XAUUSD(mode = 1, rates = data_load(Symbol.symbol_XAUUSD)):
                 symbol = Symbol.symbol_XAUUSD
                 order_type = mt5.ORDER_TYPE_BUY_LIMIT
                 price = candle0['low']
-                lot = mt5.account_info().balance * 0.01 / 300
+                lot = round(mt5.account_info().balance * 0.01 / 300, 2)
                 deviation = 10  #проскальзование
                 stoploss = price - 0.01 * 300
-                takeprofit = price + 0.01 * 300 * 10
+                takeprofit = price + 0.01 * 300 * 8
                 if(mode):
                     make_order(symbol, order_type, price, lot, deviation, stoploss, takeprofit)
+                    print(f"BUY_LIMIT:\nprice: {price}\nlot: {lot}\nstoploss: {stoploss}\n\
+takeprofit: {takeprofit}\ndate: {datetime.fromtimestamp(candle0[0]) - timedelta(hours=3)}\ndelta = {delta}", flush=True)
                     return
                 else: 
                     print('____________________')
@@ -52,12 +55,14 @@ takeprofit: {takeprofit}\ndate: {datetime.fromtimestamp(candle0[0]) - timedelta(
             symbol = Symbol.symbol_XAUUSD
             order_type = mt5.ORDER_TYPE_SELL_LIMIT
             price = candle0['high']
-            lot = mt5.account_info().balance * 0.01 / 300
+            lot = round(mt5.account_info().balance * 0.01 / 300, 2)
             deviation = 10  #проскальзование
             stoploss = price + 0.01 * 300
-            takeprofit = price - 0.01 * 300 * 10
+            takeprofit = price - 0.01 * 300 * 8
             if(mode):
                 make_order(symbol, order_type, price, lot, deviation, stoploss, takeprofit)
+                print(f"SELL_LIMIT:\nprice: {price}\nlot: {lot}\nstoploss: {stoploss}\n\
+takeprofit: {takeprofit}\ndate: {datetime.fromtimestamp(candle0[0]) - timedelta(hours=3)}\ndelta = {delta}", flush=True)
                 return
             else: 
                 print('____________________')

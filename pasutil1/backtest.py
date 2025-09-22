@@ -9,9 +9,9 @@ import pandas as pd
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 import MetaTrader5 as mt5
-from Symbols import Symbol
-from data_load import data_load
-from trading_engine import pasutil_XAUUSD
+from pasutil1.Symbols import Symbol
+from pasutil1.data_load import data_load
+from pasutil1.trading_engine import pasutil_XAUUSD
  
 # запросим статус и параметры подключения
 #print(mt5.terminal_info())
@@ -26,7 +26,7 @@ def pasutil_XAUUSD_backtest_cycle():
 
     try:
         # год месяц число час минута
-        mounth = 6
+        mounth = 8
         for i in range(30):
             print(f'\n\nday: {i + 1}')
             backtest_start_day = datetime(2025, mounth, 1 + i, 10, 00)
