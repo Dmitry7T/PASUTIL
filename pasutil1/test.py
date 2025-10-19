@@ -2,21 +2,36 @@ import sys
 import io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
-from data_load import data_load
-from datetime import datetime, timedelta
+from pasutil1.data_load import data_load
 import MetaTrader5 as mt5
-from Symbols import Symbol
-from trading_engine import pasutil_XAUUSD
+from pasutil1.Symbols import Symbol
 
+# запросим статус и параметры подключения
+#print(mt5.terminal_info())
+# получим информацию о версии MetaTrader 5
+#print(mt5.version())
 
 if not mt5.initialize():
     print("initialize() failed")
     mt5.shutdown()
-print('Подключение установлено')
+else:
+    print('Подключение установлено')
 
-rates = data_load(Symbol.symbol_XAUUSD)
-#print(rates)
+'''symbols = mt5.symbols_get()
+print("Доступные символы:", [s.name for s in symbols[:10]])'''
 
-pasutil_XAUUSD()
+symbol = "EURUSD"
+symbol_info = mt5.symbol_info(symbol)
+if symbol_info is None:
+    print(f"Символ {symbol} не найден")
+else:
+    print(f"Символ {symbol} доступен")
+    print(f"Торговые сессии: {symbol_info.session_deals}")
+
+for symbol_name in dir(Symbol):
+    if not symbol_name.startswith('__'):
+        symbol = getattr(Symbol, symbol_name)
+        rates = data_load(symbol= symbol)
+        print(rates)
 
 mt5.shutdown()

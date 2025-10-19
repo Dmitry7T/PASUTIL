@@ -8,5 +8,8 @@ def data_load(symbol,
 
     # Запрашиваем исторические данные
     rates = mt5.copy_rates_range(symbol, timeframe, start_date, end_date)
-
-    return rates
+    if len(rates):
+        return rates
+    else:
+        rates = mt5.copy_rates_from_pos(symbol, timeframe, 0, 100)
+        return rates

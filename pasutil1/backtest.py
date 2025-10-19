@@ -11,7 +11,7 @@ register_matplotlib_converters()
 import MetaTrader5 as mt5
 from pasutil1.Symbols import Symbol
 from pasutil1.data_load import data_load
-from pasutil1.trading_engine import pasutil_XAUUSD
+from pasutil1.Strategies import pasutil_XAUUSD
  
 # запросим статус и параметры подключения
 #print(mt5.terminal_info())
