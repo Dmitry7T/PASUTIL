@@ -1,9 +1,12 @@
 import json
 import os
+from datetime import datetime, timedelta
 
+filepath = 'pasutil1\jsons\\'
 def read_json():
-    if os.path.exists('pasutil1\saves.json'):
-        with open('pasutil1\saves.json', 'r', encoding='utf-8') as f:
+    path = filepath + 'saves.json'
+    if os.path.exists(path):
+        with open(path, 'r', encoding='utf-8') as f:
             try:
                 data = json.load(f)
             except json.JSONDecodeError:
@@ -12,27 +15,30 @@ def read_json():
         data = {}
     return data
 
-def add_json(type, symbol, new_data):
+def update_jsons(timeframe, file):
+    print(timeframe)
     data = read_json()
+    filtered_data = {}
     
-    if type not in data:
-        data[type] = {}
-    elif isinstance(data[type], list):
-        data[type] = {key: value for item in data[type] for key, value in item.items()}
+    current_time = datetime.now()
+    time_threshold = current_time - timedelta(minutes=2 * timeframe)
     
-    data[type][symbol] = json.loads(new_data)
-    save_json(data)
+    for data_type, symbols in data.items():
+        filtered_data[data_type] = {}
+        
+        for symbol, symbol_data in symbols.items():
+            try:
+                symbol_date_str = symbol_data.get("date", "")
+                if symbol_date_str:
+                    symbol_date = datetime.strptime(symbol_date_str, "%Y-%m-%d %H:%M:%S")
+                    if symbol_date >= time_threshold:
+                        filtered_data[data_type][symbol] = symbol_data
+            except ValueError as e:
+                print(f"Ошибка парсинга даты для {data_type}.{symbol}: {e}")
+    
+    save_json(filtered_data, file)
 
-def update_json(type, symbol, new_data):
-    data = read_json()
-    symbols_keys = list(data[type].keys())
-    if symbol not in symbols_keys:
-        add_json(type= type, symbol= symbol, new_data= new_data)
-        return
-    
-    data[type][symbol] = json.loads(new_data)
-    save_json(data)
-
-def save_json(data):
-    with open('pasutil1\saves.json', 'w', encoding='utf-8') as f:
+def save_json(data, file):
+    path = filepath + file
+    with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)

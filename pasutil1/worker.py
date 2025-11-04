@@ -4,52 +4,44 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 import time
 import MetaTrader5 as mt5
-import asyncio
+import schedule
 
-from pasutil1.Symbols import Symbol
-from pasutil1.Strategies import pas
-from pasutil1.Session import is_London
-from pasutil1.data_load import data_load
-from pasutil1.utils import update_json
+from pasutil1.cycles import pas_cycle
+from pasutil1.utils import update_jsons
 
-async def pas_cycle():
-    while 1:
-            print()
-            if is_London:
-                for symbol_name in dir(Symbol):
-                    try:
-                        if not symbol_name.startswith('__'):
-                            symbol = getattr(Symbol, symbol_name)
-                            log = pas(symbol= symbol)
-                            if log != None:
-                                update_json("forex", symbol, log)
-                    except Exception as e:
-                        print(f'{symbol}:', end= ' ', flush=True)
-                        print(e, flush=True)
-                        continue
-                print('ожидает...', flush=True)
-                time.sleep(900)
-            else:
-                print('ожидает начала сессии', flush=True)
-                time.sleep(1800)
+def worker():
+    #schedule.every(11).seconds.do(pas_cycle)
+    schedule.every(30).minutes.at(":00").do(pas_cycle)
+
+    #schedule.every(15).seconds.do(update_jsons, 15, 'saves15.json')
+    #schedule.every(30).seconds.do(update_jsons, 30, 'saves30.json')
+    #schedule.every(60).seconds.do(update_jsons, 60, 'saves60.json')
+    schedule.every(15).minutes.at(":00").do(update_jsons, 15, 'saves15.json')
+    schedule.every(30).minutes.at(":00").do(update_jsons, 30, 'saves30.json')
+    schedule.every(60).minutes.at(":00").do(update_jsons, 60, 'saves60.json')
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
 
 def starter():
     if not mt5.initialize():
-        print("initialize() failed")
+        print("initialize() failed", flush=True)
         mt5.shutdown()
     else:
-        print('Подключение установлено')
-        print("Запуск торгового бота...")
+        print('Подключение установлено', flush=True)
+        print("Запуск торгового бота...", flush=True)
 
     try:
-        asyncio.run(pas_cycle())
+        worker()
 
     except KeyboardInterrupt:
-        print("Остановка по запросу пользователя")   
+        print("Остановка по запросу пользователя", flush=True)   
 
     finally:
         mt5.shutdown()
-        print("Остановка подключения")
+        print("Остановка подключения", flush=True)
         return
 
 if __name__ == "__main__":
