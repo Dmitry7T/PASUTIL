@@ -7,7 +7,7 @@ import MetaTrader5 as mt5
 import schedule
 
 from pasutil1.cycles import pas_cycle
-from pasutil1.utils import update_jsons
+from pasutil1.utils_b import update_jsons
 
 def worker():
     #schedule.every(11).seconds.do(pas_cycle)

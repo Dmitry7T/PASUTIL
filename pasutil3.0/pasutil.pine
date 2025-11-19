@@ -1,0 +1,24 @@
+//@version=6
+
+indicator("Мой индикатор с алертами", overlay=false)
+
+// Параметры
+rsiLength = input(14, "Длина RSI")
+oversold = input(30, "Уровень перепроданности")
+overbought = input(70, "Уровень перекупленности")
+
+// Расчет RSI
+rsiValue = ta.rsi(close, rsiLength)
+
+// Условия для алертов
+rsiOversold = ta.crossover(rsiValue, oversold)  // RSI поднялся выше уровня перепроданности (сигнал на покупку)
+rsiOverbought = ta.crossunder(rsiValue, overbought) // RSI опустился ниже уровня перекупленности (сигнал на продажу)
+
+// Построение алертов
+plot(rsiValue, "RSI", color=color.blue)
+hline(oversold, "Перепроданность", color=color.green)
+hline(overbought, "Перекупленность", color=color.red)
+
+// Определение условий для алертов
+alertcondition(rsiOversold, title="RSI Перепроданность", message="RSI вышел из зоны перепроданности!")
+alertcondition(rsiOverbought, title="RSI Перекупленность", message="RSI вошел в зону перекупленности!")

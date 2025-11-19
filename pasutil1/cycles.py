@@ -2,7 +2,7 @@ from pasutil1.Symbols import crypto, forex, index
 from pasutil1.Strategies import pas
 from pasutil1.Session import is_London
 from pasutil1.data_load import data_load
-from pasutil1.cycles_utils import update_json
+from pasutil1.utils import update_json
 
 def pas_cycle():
     if is_London:

@@ -5,7 +5,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 import json
 import MetaTrader5 as mt5
 from pasutil1.Strategies import pas
-from pasutil1.cycles_utils import update_json
+from pasutil1.utils import update_json
 from pasutil1.Symbols import crypto, forex, index
 
 if not mt5.initialize():
