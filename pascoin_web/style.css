@@ -1,0 +1,463 @@
+ss
+/* Общие стили */
+:root {
+    --primary-color: #1A237E; /* Глубокий темно-синий */
+    --secondary-color: #FFFFFF; /* Белый */
+    --accent-color: #3F51B5; /* Средний синий */
+    --dark-bg-color: #0D1B2A; /* Очень темный синий/черный */
+    --text-color-light: #333333;
+    --text-color-dark: #FFFFFF;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+nav {
+    color: DarkCyan;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    height: 100vh;
+    background-size: 0;
+    background-position: center;
+    background: -webkit-linear-gradient(90deg, #000000, #0d1521, #070e18);
+    background: linear-gradient(90deg, #000000, #0d1521, #070e18);
+    color: aliceblue;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Inter', sans-serif;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+h1 { font-size: 2.2em; }
+h2 { font-size: 1.8em; }
+h3 { font-size: 1.4em; }
+h4 { font-size: 1.1em; }
+
+.container {
+    width: 90%;
+    max-width: 960px; /* Немного уменьшим max-width */
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.section-padding {
+    padding: 50px 0; /* Уменьшим отступы */
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.section-header h2 {
+    color: var(--primary-color);
+}
+
+.btn-primary, .cta-button {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px 22px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.footerlogoss{
+    height: 20px; 
+    width: auto;
+}
+
+.btn-primarys{
+    display: inline-block;
+    background-color: DodgerBlue;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px 22px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primarys:hover{
+    transform: translateY(-2px);
+}
+
+.btn-primary:hover, .cta-button:hover {
+    background-color: DarkCyan; /* Темнее акцент */
+    transform: translateY(-2px);
+}
+
+/* Шапка сайта (Header) */
+#header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(10px) saturate(180%); 
+    backdrop-filter: blur(10px) saturate(180%);       
+}
+
+#header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 1.6em; /* Уменьшим размер */
+    color: white;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 18px; /* Уменьшим отступ */
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: var(--accent-color);
+}
+
+.cta-button {
+    font-size: 0.9em; 
+    padding: 8px 18px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.hero-section {
+    min-height: 50vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    background-color: var(--primary-color);
+    padding: 60px 0; 
+}
+
+.hero-content {
+    position: relative;
+    max-width: 600px;
+    bottom: 150px;
+}
+
+.hero-content h2 {
+    font-size: 2.5em; /* Уменьшим размер */
+    margin-bottom: 15px;
+    color: white;
+}
+
+.hero-content p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    margin-bottom: 25px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.about-content{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.about-content {
+    text-align: center;
+}
+
+.tg {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.5em;
+    text-decoration: none;
+    background: -webkit-linear-gradient(90deg, #ffffff,#7deeff,#ffffff);background: linear-gradient(90deg, #ffffff,#7deeff,#ffffff);
+    background-clip: text;
+    color: transparent;
+}
+
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Немного уменьшим min-width */
+    gap: 25px;
+    margin-top: 35px;
+    color: White;
+}
+
+.feature-item p {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.feature-item {
+    background-color: #f8f9fa; /* Светло-серый фон для карточки */
+    padding: 25px 18px; /* Уменьшим padding */
+    border-radius: 6px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: RoyalBlue;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/*  ТУТУТУТУ  */
+.feature-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    background-color: DodgerBlue; /* Целевой цвет */
+}
+
+.TEXTsT{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.pr{
+    text-decoration: none;
+    color: DodgerBlue;
+}
+
+.feature-item i {
+    font-size: 2em; /* Уменьшим размер иконки */
+    color: var(--accent-color);
+    margin-bottom: 12px;
+}
+
+.feature-item h3 {
+    margin-bottom: 8px;
+    color: var(--primary-color);
+}
+
+.feature-item p {
+    font-size: 0.9em;
+}
+
+/* Секция "Сообщество" */
+#community .community-content {
+    text-align: center;
+}
+
+.social-links {
+    margin: 25px 0;
+}
+
+.social-links a {
+    display: inline-block;
+    margin: 0 12px; /* Уменьшим отступ */
+    color: var(--accent-color);
+    font-size: 1.8em; /* Уменьшим размер */
+    transition: color 0.3s ease;
+}
+.social-links a:hover {
+    color: #304FFE;
+}
+
+.buy-info {
+    text-align: center;
+}
+
+.exchange-logos-simple {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.exchange-logos-simple img {
+    height: 30px; /* Уменьшим размер логотипов */
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.exchange-logos-simple img:hover {
+    opacity: 1;
+}
+
+.buy-button {
+    font-size: 1.1em;
+    padding: 12px 25px;
+}
+
+#footer {
+    background-color: var(--dark-bg-color);
+    padding-top: 30px; /* Увеличим отступ сверху, чтобы отделить от копирайта */
+    padding-bottom: 0; /* Уберем нижний padding, так как копирайт теперь в отдельном блоке */
+    font-size: 0.85em;
+}
+
+#footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px 30px; /* Увеличим горизонтальный gap для больших экранов */
+    padding-bottom: 30px; /* Добавим padding снизу для контейнера */
+}
+
+.footer-brand { /* Стили для нового контейнера */
+    flex: 1;
+    min-width: 180px;
+    display: flex; /* Сделаем flex-контейнером */
+    align-items: center; /* Выровняем элементы по центру по вертикали */
+    gap: 15px; /* Отступ между текстом и изображением */
+}
+
+.footer-brand h3 {
+    color: white;
+    font-size: 1.6em;
+    margin: 0; /* Обнулим маржин, так как flex управляет отступами */
+}
+
+.footerlogo{ 
+    position: relative;
+    height: 300px;
+    left: 450px;
+    top: 130px;
+    
+}
+
+.footer-ivanzolo-logo { /* Стиль для вашего изображения */
+    height: 35px; /* Задайте подходящую высоту, чтобы изображение было заметным, но не огромным */
+    width: auto; /* Автоматическая ширина для сохранения пропорций */; /* Если логотип цветной, можно сделать его белым для темного фона */
+    /* Если логотип уже хорошо смотрится на темном фоне, уберите filter */
+}
+
+.footer-social h4 {
+    color: white;
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.footer-social a {
+    color: white;
+    font-size: 1.5em;
+    margin-left: 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: var(--accent-color);
+}
+
+.footer-copyright-line {
+    background-color: rgba(0, 0, 0, 0.1); /* Чуть более темный фон для контраста */
+    padding: 15px 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Разделительная линия */
+}
+
+.footer-copyright-line p {
+    margin: 0;
+    font-size: 0.8em;
+}
+
+.litt{
+    color: #3F51B5;
+}
+
+/* Медиа-запросы для адаптивности (скорректируем footer) */
+@media (max-width: 768px) {
+    #footer .container {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px; /* Уменьшим gap для мобильных */
+    }
+    .footer-brand {
+        justify-content: center; /* Выравнивание по центру для мобильных */
+        flex-direction: column; /* Разместим по вертикали, если нужно */
+        gap: 10px;
+    }
+    .footer-brand h3 { margin-bottom: 0; }
+    .footer-ivanzolo-logo { margin-top: 5px; } /* Небольшой отступ, если в колонку */
+
+    .footer-social { margin-top: 15px; }
+    .footer-social a { margin: 0 8px; }
+}
+
+@media (max-width: 576px) {
+    .footer-ivanzolo-logo { height: 30px; } /* Ещё меньше на очень маленьких экранах */
+}
+
+
+.levitating-container {
+  display: flex; /* Для центрирования и управления пространством */
+  justify-content: center;
+  align-items: center;
+  min-height: 200px; /* Чтобы было место для "левитации" */
+  /* background-color: #f0f0f0;  Необязательно, для лучшей демонстрации */
+  position: relative; /* Для позиционирования тени */
+}
+
+.levitating-object {
+    position: relative;
+    height: 300px;
+    left: 450px;
+    top: 130px;
+    animation: float 3s ease-in-out infinite; /* Применяем анимацию */
+    z-index: 2; /* Убедимся, что объект над тенью */
+}
+
+/* Ключевые кадры для анимации левитации */
+@keyframes float {
+  0% {
+    transform: translateY(0px); /* Начальное положение */
+  }
+  50% {
+    transform: translateY(-15px); /* Перемещаем вверх на 15px */
+  }
+  100% {
+    transform: translateY(0px); /* Возвращаем в начальное положение */
+  }
+}
+
+/* Тень для усиления эффекта левитации */
+.levitating-container::after {
+  content: '';
+  position: absolute;
+  bottom: 60px;
+  width: 80px;
+  height: 15px; 
+  background: rgba(0, 0, 0, 0.2); 
+  border-radius: 50%;
+  filter: blur(5px); 
+  animation: shadow-float 3s ease-in-out infinite; 
+  z-index: 1; 
+}
+
+@keyframes shadow-float {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.8); 
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
