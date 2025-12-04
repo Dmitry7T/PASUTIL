@@ -7,20 +7,12 @@ import MetaTrader5 as mt5
 import schedule
 
 from pasutil1.cycles import pas_cycle
-from pasutil1.JSONmanegers import JSONManagerOutput
+from pasutil1.tracker import monitor_file
 
 def worker():
-    jm = JSONManagerOutput()
     #schedule.every(11).seconds.do(pas_cycle)
     schedule.every(30).minutes.at(":00").do(pas_cycle)
-
-    #schedule.every(15).seconds.do(update_jsons, 15, 'saves15.json')
-    #schedule.every(30).seconds.do(update_jsons, 30, 'saves30.json')
-    #schedule.every(60).seconds.do(update_jsons, 60, 'saves60.json')
-
-    #schedule.every(15).minutes.at(":00").do(jm.update, 15, 'saves15.json')
-    #schedule.every(30).minutes.at(":00").do(jm.update, 30, 'saves30.json')
-    #schedule.every(60).minutes.at(":00").do(jm.update, 60, 'saves60.json')
+    monitor_file("pasutil1\jsons\saves.json")
 
     while True:
         schedule.run_pending()
