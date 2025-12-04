@@ -7,7 +7,7 @@ def data_load(symbol,
     start_date = end_date - timedelta(hours=8, minutes=30)
 
     rates = mt5.copy_rates_range(symbol, timeframe, start_date, end_date)
-    if len(rates):
+    if rates is None:
         return rates
     else:
         rates = mt5.copy_rates_from_pos(symbol, timeframe, 0, 100)

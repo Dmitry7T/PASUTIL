@@ -16,6 +16,7 @@ if not mt5.initialize():
 else:
     print('Подключение установлено')
 
+print(mt5.terminal_info())
 data = data_load(symbol="EURUSD")
 print(data)
 
