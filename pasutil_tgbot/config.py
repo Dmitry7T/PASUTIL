@@ -1,8 +1,10 @@
 TOKEN = ""
-CHANNEL = "@"
+CHANNEL = ""
 API_KEY = "" 
-TONCENTER_URL = f"https://toncenter.com/api/v2/jsonRPC?api_key={API_KEY}" 
+API_TOKEN = ""
+TONCENTER_URL = f"" 
 WATCH_ADDRESS_B64 = ""
 
 
 headers = {'Content-Type': 'application/json'}
+
