@@ -90,3 +90,5 @@ def get_date_by_username_id(username_id: str) -> str | None:
     finally:
         if conn:
             conn.close()
+
+create_table()

@@ -1,7 +1,7 @@
 import threading
 from time import sleep
-from config import *
-from tracking_edit_file import get_file_hash
+from pasutil_tgbot.config import *
+from pasutil_tgbot.tracking_edit_file import get_file_hash
 import json
 
 def send_loop(chat_id, bot):
