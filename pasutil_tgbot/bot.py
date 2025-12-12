@@ -2,15 +2,14 @@ import telebot
 import requests
 #ну иморт
 from telebot import types
-from pasutil_tgbot.exchange_rate import exchange
-from pasutil_tgbot.examination_index import examination
-from pasutil_tgbot.database_control import *
-from pasutil_tgbot.markups import *
-from pasutil_tgbot.config import *
-from pasutil_tgbot.values import *
-from time import sleep
-from pasutil_tgbot.tracking_edit_file import *
-from pasutil_tgbot.send_cycle import start_handler
+from exchange_rate import exchange
+from examination_index import examination
+from database_control import *
+from markups import *
+from config import *
+from values import *
+from tracking_edit_file import *
+from send_cycle import start_handler
 
 bot = telebot.TeleBot(TOKEN)
 
