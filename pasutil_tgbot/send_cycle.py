@@ -1,16 +1,16 @@
 import threading
 from time import sleep
-from config import *
-from tracking_edit_file import get_file_hash
+from pasutil_tgbot.config import *
+from pasutil_tgbot.tracking_edit_file import get_file_hash
 import json
 
 def send_loop(chat_id, bot):
-    original_hash = get_file_hash(f"pasutil1/jsons/saves.json")
+    original_hash = get_file_hash(f"pasutil1/jsons/output.json")
     while sending_flags.get(chat_id, False):
         sleep(10)
-        current_hash = get_file_hash(f"pasutil1/jsons/saves.json")
+        current_hash = get_file_hash(f"pasutil1/jsons/output.json")
         if current_hash != original_hash:
-            with open(f"pasutil1/jsons/saves.json", 'r') as f:
+            with open(f"pasutil1/jsons/output.json", 'r') as f:
                 data = json.load(f)['forex'], json.load(f)['index']
                 for pair, info in data.items():
                     sleep(10)
@@ -19,7 +19,7 @@ def send_loop(chat_id, bot):
                         bot.send_message(chat_id, msg, parse_mode="HTML")
                     else:
                         break
-                original_hash = get_file_hash(f"pasutil1/jsons/saves.json")
+                original_hash = get_file_hash(f"pasutil1/jsons/output.json")
 
 def start_handler(chat_id, bot):
     sending_flags[chat_id] = True

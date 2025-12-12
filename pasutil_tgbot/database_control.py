@@ -2,7 +2,7 @@ import sqlite3
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-File_db = 'telegram_users.db'
+File_db = 'pasutil_tgbot/telegram_users.db'
 
 def create_table():
     conn = sqlite3.connect(File_db)

@@ -1,25 +1,28 @@
-import os
-from time import sleep
+import subprocess
+import time
+import sys
 
-flag_bot1 = False
-flag_bot2 = False
-
-while 1:
-    if(not flag_bot1):
+def main():
+    procs = []
+    bots = ['pasutil1.worker', 'pasutil_tgbot.bot']
+    
+    for bot in bots:
         try:
-            os.system('python pasutil1/worker.py')
-            flag_bot1 = True
-        except:
-            print("bot 1 error")
-            flag_bot1 = False
-            sleep(5)
+            proc = subprocess.Popen([sys.executable, '-m', bot])
+            procs.append(proc)
+            print(f"Bot {bot} activate (PID: {proc.pid})")
+        except Exception as e:
+            print(f"start error {bot}: {e}")
+    
+    try:
+        for proc in procs:
+            proc.wait()
+    except KeyboardInterrupt:
+        print("Server is shuting down...")
+        for proc in procs:
+            proc.terminate()
 
-    if(not flag_bot1):
-        try:
-            os.system('python pasutil_tgbot/bot.py')
-            flag_bot2 = True
-        except:
-            print("bot 2 error")
-            flag_bot2 = False
-            sleep(5)
-    sleep(5)
+if __name__ == "__main__":
+    print("server on")
+    main()
+    print("server off")
