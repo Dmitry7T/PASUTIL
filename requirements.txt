@@ -1,0 +1,5 @@
+python-dateutil
+schedule
+MetaTrader5
+telebot
+requests

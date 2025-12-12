@@ -1,7 +1,3 @@
-import sys
-import io
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-
 import time
 import MetaTrader5 as mt5
 import schedule
@@ -24,18 +20,18 @@ def starter():
         print("initialize() failed", flush=True)
         mt5.shutdown()
     else:
-        print('Подключение установлено', flush=True)
-        print("Запуск торгового бота...", flush=True)
+        print('Connection complete', flush=True)
+        print("Launching trading bot...", flush=True)
 
     try:
         worker()
 
     except KeyboardInterrupt:
-        print("Остановка по запросу пользователя", flush=True)   
+        print("Stop at the user's request", flush=True)   
 
     finally:
         mt5.shutdown()
-        print("Остановка подключения", flush=True)
+        print("Stopping connection", flush=True)
         return
 
 if __name__ == "__main__":
