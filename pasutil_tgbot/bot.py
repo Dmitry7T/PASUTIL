@@ -1,6 +1,6 @@
 import telebot
 import requests
-#ну иморт
+#ну импорт
 from telebot import types
 from pasutil_tgbot.exchange_rate import exchange
 from pasutil_tgbot.examination_index import examination
@@ -116,8 +116,9 @@ def get_pay_link(amount):
         return response_data['result']['pay_url'], response_data['result']['invoice_id']
     return None, None
 
-def start_message(chat_id):
-    bot.send_message(chat_id, "⚙️Please, select mode", reply_markup=markup_menu)
+def start_message(chat_id, message_id):
+    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="⚙️Please, select mode", reply_markup=markup_menu)
+    #bot.send_message(chat_id, "⚙️Please, select mode", reply_markup=markup_menu)
 
 @bot.callback_query_handler(func=lambda call: True)
 def handle_query(call: types.CallbackQuery) -> None:
@@ -141,42 +142,36 @@ def handle_query(call: types.CallbackQuery) -> None:
                 bot.register_next_step_handler(call.message, otvet)
 
             elif call.data == 'user_agreement':
-                bot.delete_message(chat_id, message_id)
                 with open('pasutil_tgbot\sogl.txt', 'r', encoding='utf-8') as f:
                     content = f.read()
-                    bot.send_message(chat_id, content, reply_markup=markup_back)
+                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text=content, reply_markup=markup_back)
 
             elif call.data == 'trall':
-                #user_data[user_id] = {'process': True}
-                bot.delete_message(chat_id, message_id)
-                bot.send_message(chat_id, "Starting shipping...", reply_markup=markup_back)
+                bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Starting shipping...", reply_markup=markup_back)
                 start_handler(chat_id, bot)
 
             elif call.data == 'gs':
-                bot.delete_message(chat_id, message_id)
-                start_message(chat_id)
+                start_message(chat_id,message_id)
 
             elif call.data == 'sp':
                 if sending_flags.get(chat_id, False):
                     sending_flags[chat_id] = False
-                    bot.delete_message(chat_id, message_id)
-                    bot.send_message(chat_id, "The process is stopped", reply_markup=markup_back)
+                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="The process is stopped", reply_markup=markup_back)
                 else:
-                    bot.send_message(chat_id, "The process is not active")
+                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="The process is not active", reply_markup=markup_back)
+                    #bot.send_message(chat_id, "The process is not active")
 
             elif call.data == 'stngs':
-                bot.delete_message(chat_id, message_id)
-                bot.send_message(chat_id, "Here you can set the operating mode", reply_markup=markup_settings)
+                bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Here you can set the operating mode", reply_markup=markup_settings)
 
             elif call.data == 'back':
-                bot.delete_message(chat_id, message_id)
-                start_message(chat_id)
+                #bot.delete_message(chat_id, message_id)
+                start_message(chat_id,message_id)
 
             elif call.data == "account":
-                bot.delete_message(chat_id, message_id)
                 date = get_date_by_username_id(user_id)
                 msg = f"<strong>Account information:</strong>\n\n👤<strong>ID</strong>: {user_id}\n💰<strong>Rate</strong>: {price}$\n🔑<strong>End date:</strong> {date}"
-                bot.send_message(chat_id, msg, reply_markup=markup_back, parse_mode="HTML")
+                bot.edit_message_text(chat_id=chat_id, message_id=message_id, text=msg, reply_markup=markup_back, parse_mode="HTML")
                 
         else:
             bot.delete_message(chat_id, message_id)
@@ -187,4 +182,4 @@ def handle_query(call: types.CallbackQuery) -> None:
         bot.answer_callback_query(call.id)
         bot.send_message(teterev_admin, a)  #отправка тетереву SOS
 
-bot.polling(none_stop=True)	
+bot.infinity_polling()

@@ -1,7 +1,12 @@
 import sqlite3
+import telebot
+
 from datetime import datetime
 from time import sleep
-from database_control import File_db
+from pasutil_tgbot.database_control import File_db
+from pasutil_tgbot.config import TOKEN
+
+bot = telebot.TeleBot(TOKEN)
 
 def check_subscriptions():
     conn = sqlite3.connect(File_db)
@@ -22,6 +27,8 @@ def check_subscriptions():
                     SET Subscription = ?, date = ?
                     WHERE username_id = ?
                 """, (0, None, username_id))
+                bot.send_message(username_id, "Your subscription has expired.")
+
             else:
                 print("НЕ ПРОСРОЧЕНО")
 

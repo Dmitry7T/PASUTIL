@@ -36,14 +36,16 @@ button3 = types.InlineKeyboardButton(text='6️⃣0️⃣ min', callback_data='s
 
 markup_time.add(button1,button2,button3)
 
+"""
 markup_subscribe = types.InlineKeyboardMarkup()
 button1 = types.InlineKeyboardButton(text='Pay for a subscription💳', url="https://t.me/pasutilchannel")
 button2 = types.InlineKeyboardButton(text='Check subscription✅', callback_data='ps')
-markup_subscribe.add(button1, button2)
+markup_subscribe.add(button1, button2)"""
 
+"""
 markup_pp = types.InlineKeyboardMarkup()
 button1 = types.InlineKeyboardButton(text='XAUUSD💲', callback_data='XAUUSD')
-markup_pp.add(button1)
+markup_pp.add(button1)"""
 
 markup_back = types.InlineKeyboardMarkup()
 button1 = types.InlineKeyboardButton(text='⬅️Back', callback_data='back')
