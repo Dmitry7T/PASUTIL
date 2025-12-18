@@ -142,7 +142,7 @@ def handle_query(call: types.CallbackQuery) -> None:
                 bot.register_next_step_handler(call.message, otvet)
 
             elif call.data == 'user_agreement':
-                with open('pasutil_tgbot\sogl.txt', 'r', encoding='utf-8') as f:
+                with open('pasutil_tgbot/sogl.txt', 'r', encoding='utf-8') as f:
                     content = f.read()
                     bot.edit_message_text(chat_id=chat_id, message_id=message_id, text=content, reply_markup=markup_back)
 
