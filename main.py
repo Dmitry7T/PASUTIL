@@ -1,7 +1,7 @@
 import subprocess
 import time
 import sys
-#penis
+
 def main():
     procs = []
     bots = ['pasutil1.worker', 'pasutil_tgbot.bot']
