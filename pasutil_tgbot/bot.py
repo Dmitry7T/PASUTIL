@@ -10,6 +10,8 @@ from pasutil_tgbot.config import *
 from pasutil_tgbot.values import *
 from pasutil_tgbot.tracking_edit_file import *
 from pasutil_tgbot.send_cycle import start_handler
+from pasutil_tgbot.top_pairs import start_top_pairs, top_pairs
+from time import sleep
 
 bot = telebot.TeleBot(TOKEN)
 
@@ -147,15 +149,36 @@ def handle_query(call: types.CallbackQuery) -> None:
                     bot.edit_message_text(chat_id=chat_id, message_id=message_id, text=content, reply_markup=markup_back)
 
             elif call.data == 'trall':
-                bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Starting shipping...", reply_markup=markup_back)
-                start_handler(chat_id, bot)
+                if sending_flags1.get(chat_id, False):
+                    sending_flags1[chat_id] = False
+                    bot.send_message(chat_id, "Tracking 10pp is finished")
+                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Start all shipping...", reply_markup=markup_back)
+                    sleep(2)
+                    start_handler(chat_id, bot)
+                else:
+                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Start all shipping...", reply_markup=markup_back)
+                    sleep(2)
+                    start_handler(chat_id, bot)
+
+            elif call.data == '10pp':
+                if sending_flags.get(chat_id, False):
+                    sending_flags[chat_id] = False
+                    bot.send_message(chat_id, "Tracking everything is finished")
+                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Start 10pp shipping...", reply_markup=markup_back)
+                    sleep(2)
+                    start_top_pairs(chat_id, bot)
+                else:
+                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Start 10pp shipping...", reply_markup=markup_back)
+                    sleep(2)
+                    start_top_pairs(chat_id, bot)
 
             elif call.data == 'gs':
                 start_message(chat_id,message_id)
 
             elif call.data == 'sp':
-                if sending_flags.get(chat_id, False):
+                if sending_flags1.get(chat_id, False) or sending_flags.get(chat_id, False):
                     sending_flags[chat_id] = False
+                    sending_flags1[chat_id] = False
                     bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="The process is stopped", reply_markup=markup_back)
                 else:
                     bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="The process is not active", reply_markup=markup_back)

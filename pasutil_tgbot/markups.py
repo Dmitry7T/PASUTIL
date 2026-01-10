@@ -23,7 +23,7 @@ markup_start.add(button1)
 
 markup_settings = types.InlineKeyboardMarkup()
 button1 = types.InlineKeyboardButton(text='⛔️Stop processing', callback_data='sp')
-button2 = types.InlineKeyboardButton(text='اللعنة، لم أتوصل إلى حل بعد.', callback_data='iweuf')
+button2 = types.InlineKeyboardButton(text='🛡️Change mod', callback_data='change_mod')
 button3 = types.InlineKeyboardButton(text='⬅️Back', callback_data='back')
 markup_settings.row(button1)
 markup_settings.row(button2)
