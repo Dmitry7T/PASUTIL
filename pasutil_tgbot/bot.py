@@ -153,11 +153,9 @@ def handle_query(call: types.CallbackQuery) -> None:
                     sending_flags1[chat_id] = False
                     bot.send_message(chat_id, "Tracking 10pp is finished")
                     bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Start all shipping...", reply_markup=markup_back)
-                    sleep(2)
                     start_handler(chat_id, bot)
                 else:
                     bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Start all shipping...", reply_markup=markup_back)
-                    sleep(2)
                     start_handler(chat_id, bot)
 
             elif call.data == '10pp':
@@ -165,11 +163,9 @@ def handle_query(call: types.CallbackQuery) -> None:
                     sending_flags[chat_id] = False
                     bot.send_message(chat_id, "Tracking everything is finished")
                     bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Start 10pp shipping...", reply_markup=markup_back)
-                    sleep(2)
                     start_top_pairs(chat_id, bot)
                 else:
                     bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Start 10pp shipping...", reply_markup=markup_back)
-                    sleep(2)
                     start_top_pairs(chat_id, bot)
 
             elif call.data == 'gs':
@@ -185,10 +181,21 @@ def handle_query(call: types.CallbackQuery) -> None:
                     #bot.send_message(chat_id, "The process is not active")
 
             elif call.data == 'stngs':
+                markup_settings = types.InlineKeyboardMarkup()
                 if sending_flags1.get(chat_id, False) or sending_flags.get(chat_id, False):
+                    button1 = types.InlineKeyboardButton(text='⛔️Stop processing', callback_data='sp')
+                    button2 = types.InlineKeyboardButton(text='🛡️Change mod', callback_data='change_mod')
+                    button3 = types.InlineKeyboardButton(text='⬅️Back', callback_data='back')
+                    markup_settings.row(button1)
+                    markup_settings.row(button2)
+                    markup_settings.row(button3)
                     bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Here you can set the operating mode", reply_markup=markup_settings)
                 else:
-                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Here you can set the operating mode", reply_markup=markup_settings1)
+                    button1 = types.InlineKeyboardButton(text='🛡️Change mod', callback_data='change_mod')
+                    button2 = types.InlineKeyboardButton(text='⬅️Back', callback_data='back')
+                    markup_settings.row(button1)
+                    markup_settings.row(button2)
+                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Here you can set the operating mode", reply_markup=markup_settings)
 
             elif call.data == 'back':
                 #bot.delete_message(chat_id, message_id)
