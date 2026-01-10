@@ -23,7 +23,7 @@ def start(message):
 
 @bot.message_handler(commands=['help'])
 def help(message):
-    bot.send_message(message.chat.id, help_text)
+    bot.send_message(message.chat.id, help_text, parse_mode="HTML")
 
 @bot.callback_query_handler(func=lambda call: call.data == "get_0.1")
 def get_invoice(call):
