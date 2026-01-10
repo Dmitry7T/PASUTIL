@@ -119,8 +119,7 @@ def get_pay_link(amount):
     return None, None
 
 def start_message(chat_id, message_id):
-    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="⚙️Please, select mode", reply_markup=markup_menu)
-    #bot.send_message(chat_id, "⚙️Please, select mode", reply_markup=markup_menu)
+    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="📋Please, select mode", reply_markup=markup_menu)
 
 @bot.callback_query_handler(func=lambda call: True)
 def handle_query(call: types.CallbackQuery) -> None:
@@ -130,18 +129,19 @@ def handle_query(call: types.CallbackQuery) -> None:
     try:
         if check_subscription_active(user_id):
             if call.data:
+                bot.clear_step_handler_by_chat_id(chat_id=call.message.chat.id)
                 bot.answer_callback_query(call.id)
 
             if call.data == 'yoop':
-                bot.delete_message(chat_id, message_id)
                 def otvet(message):
                     if examination(message.text):
-                        bot.send_message(message.chat.id, exchange(message.text), reply_markup=markup_back)  #ИСПРАВИТЬ
+                        bot.send_message(message.chat.id, exchange(message.text))  #ИСПРАВИТЬ
                     else:
                         bot.send_message(message.chat.id, "There is no such index.")  #ИСПРАВИТЬ / или не надо
                         
-                bot.send_message(chat_id, 'Select index', reply_markup=markup_back)
+                bot.send_message(chat_id, 'Please, select index')
                 bot.register_next_step_handler(call.message, otvet)
+                #bot.clear_step_handler_by_chat_id(chat_id=call.message.chat.id)
 
             elif call.data == 'user_agreement':
                 with open('pasutil_tgbot/sogl.txt', 'r', encoding='utf-8') as f:
@@ -151,21 +151,21 @@ def handle_query(call: types.CallbackQuery) -> None:
             elif call.data == 'trall':
                 if sending_flags1.get(chat_id, False):
                     sending_flags1[chat_id] = False
-                    bot.send_message(chat_id, "Tracking 10pp is finished")
-                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Start all shipping...", reply_markup=markup_back)
+                    bot.send_message(chat_id, "🏁Tracking 10pp is finished")
+                    bot.send_message(chat_id, "▶️Start all shipping...")
                     start_handler(chat_id, bot)
                 else:
-                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Start all shipping...", reply_markup=markup_back)
+                    bot.send_message(chat_id, "▶️Start all shipping...")
                     start_handler(chat_id, bot)
 
             elif call.data == '10pp':
                 if sending_flags.get(chat_id, False):
                     sending_flags[chat_id] = False
-                    bot.send_message(chat_id, "Tracking everything is finished")
-                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Start 10pp shipping...", reply_markup=markup_back)
+                    bot.send_message(chat_id, "🏁Tracking everything is finished")
+                    bot.send_message(chat_id, "▶️Start 10pp shipping...")
                     start_top_pairs(chat_id, bot)
                 else:
-                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Start 10pp shipping...", reply_markup=markup_back)
+                    bot.send_message(chat_id, "▶️Start 10pp shipping...")
                     start_top_pairs(chat_id, bot)
 
             elif call.data == 'gs':
@@ -175,30 +175,28 @@ def handle_query(call: types.CallbackQuery) -> None:
                 if sending_flags1.get(chat_id, False) or sending_flags.get(chat_id, False):
                     sending_flags[chat_id] = False
                     sending_flags1[chat_id] = False
-                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="The process is stopped", reply_markup=markup_back)
+                    bot.send_message(chat_id, "The process is stopped")
+                    start_message(chat_id,message_id)
                 else:
                     bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="The process is not active", reply_markup=markup_back)
-                    #bot.send_message(chat_id, "The process is not active")
 
             elif call.data == 'stngs':
                 markup_settings = types.InlineKeyboardMarkup()
+                button1 = types.InlineKeyboardButton(text='⛔️Stop processing', callback_data='sp')
+                button2 = types.InlineKeyboardButton(text='🛡️Change mod', callback_data='change_mod')
+                button3 = types.InlineKeyboardButton(text='⬅️Back', callback_data='back')
+
                 if sending_flags1.get(chat_id, False) or sending_flags.get(chat_id, False):
-                    button1 = types.InlineKeyboardButton(text='⛔️Stop processing', callback_data='sp')
-                    button2 = types.InlineKeyboardButton(text='🛡️Change mod', callback_data='change_mod')
-                    button3 = types.InlineKeyboardButton(text='⬅️Back', callback_data='back')
                     markup_settings.row(button1)
                     markup_settings.row(button2)
                     markup_settings.row(button3)
-                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Here you can set the operating mode", reply_markup=markup_settings)
+
                 else:
-                    button1 = types.InlineKeyboardButton(text='🛡️Change mod', callback_data='change_mod')
-                    button2 = types.InlineKeyboardButton(text='⬅️Back', callback_data='back')
-                    markup_settings.row(button1)
                     markup_settings.row(button2)
-                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Here you can set the operating mode", reply_markup=markup_settings)
+                    markup_settings.row(button3)
+                bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="🛠️Here you can set the operating mode", reply_markup=markup_settings)
 
             elif call.data == 'back':
-                #bot.delete_message(chat_id, message_id)
                 start_message(chat_id,message_id)
 
             elif call.data == "account":
