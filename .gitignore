@@ -1,0 +1,6 @@
+pasutil_AI/data/*.csv
+pasutil_AI/levels/*/
+telegram_users.db
+# да я написал конфиг так, потому что его надо передвинуть в корневую папку
+config.py
+.venv

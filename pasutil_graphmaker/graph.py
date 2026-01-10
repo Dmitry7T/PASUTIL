@@ -7,9 +7,6 @@ import pyqtgraph as pg
 from random import gauss
 from collections import deque
 
-class Marker(pg.GraphicsObject):
-    def __init__(self, time, price, type):
-        pass
 class CandlestickItem(pg.GraphicsObject):
     """Кастомный графический элемент для отрисовки японских свечей"""
     
@@ -111,57 +108,9 @@ class MainWindow(QMainWindow):
         panel_widget.setLayout(right_panel)
         layout.addWidget(panel_widget, 1)
 
-        # --- Таймер для имитации обновления данных ---
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.update_candles)
-        self.counter = 0
 
         # --- Подключаем сигналы кнопок ---
-        self.start_btn.clicked.connect(self.start)
-        self.stop_btn.clicked.connect(self.stop)
-        self.add_candle_btn.clicked.connect(self.add_random_candle)
-
         self.log("Application started. Ready to display candlesticks.")
-
-    def start(self):
-        self.timer.start(500)  # Обновление каждые 500 мс
-        self.start_btn.setEnabled(False)
-        self.stop_btn.setEnabled(True)
-        self.log("Candlestick stream started.")
-
-    def stop(self):
-        self.timer.stop()
-        self.start_btn.setEnabled(True)
-        self.stop_btn.setEnabled(False)
-        self.log("Candlestick stream stopped.")
-
-    def add_random_candle(self):
-        """Добавляет случайную свечу (для демонстрации)"""
-        self.current_time += 1
-        base_price = 100
-        
-        # Генерируем случайные значения для OHLC
-        open_price = base_price + np.random.normal(0, 2)
-        close_price = open_price + np.random.normal(0, 1)
-        high_price = max(open_price, close_price) + abs(np.random.normal(0, 1))
-        low_price = min(open_price, close_price) - abs(np.random.normal(0, 1))
-        
-        new_candle = [self.current_time, open_price, high_price, low_price, close_price]
-        self.candle_data.append(new_candle)
-        
-        # Ограничиваем количество отображаемых свечей
-        if len(self.candle_data) > 50:
-            self.candle_data.pop(0)
-        
-        self.update_candlestick_chart()
-        self.update_candle_table(new_candle)
-        
-        candle_type = "BULL" if open_price < close_price else "BEAR"
-        self.log(f"Added candle: Time={self.current_time}, O={open_price:.2f}, H={high_price:.2f}, L={low_price:.2f}, C={close_price:.2f} ({candle_type})")
-
-    def update_candles(self):
-        """Автоматическое добавление свечей по таймеру"""
-        self.add_random_candle()
 
     def update_candlestick_chart(self):
         """Обновляет свечной график"""
@@ -198,6 +147,8 @@ class MainWindow(QMainWindow):
         # Удаляем старые строки
         if self.table.rowCount() > 5:
             self.table.removeRow(self.table.rowCount() - 1)
+    
+        
 
     def load_mt5_candles(self, mt5_candles_array):
         """Загружает данные из MetaTrader 5"""
