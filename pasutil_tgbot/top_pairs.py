@@ -25,6 +25,6 @@ def top_pairs(chat_id, bot):
                 original_hash = get_file_hash(file)
 
 def start_top_pairs(chat_id, bot):
+    sending_flags1[chat_id] = True
     thread = threading.Thread(target=top_pairs, args=(chat_id, bot))
     thread.start()
-    sending_flags1[chat_id] = True

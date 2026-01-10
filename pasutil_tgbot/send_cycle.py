@@ -25,9 +25,9 @@ def send_loop(chat_id, bot):
                     original_hash = get_file_hash(f"pasutil1/jsons/saves.json")
 
 def start_handler(chat_id, bot):
+    sending_flags[chat_id] = True
     thread = threading.Thread(target=send_loop, args=(chat_id, bot))
     thread.start()
-    sending_flags[chat_id] = True
 
 """
 def stop_handler(chat_id, bot):

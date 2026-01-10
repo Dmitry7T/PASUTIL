@@ -185,7 +185,10 @@ def handle_query(call: types.CallbackQuery) -> None:
                     #bot.send_message(chat_id, "The process is not active")
 
             elif call.data == 'stngs':
-                bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Here you can set the operating mode", reply_markup=markup_settings)
+                if sending_flags1.get(chat_id, False) or sending_flags.get(chat_id, False):
+                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Here you can set the operating mode", reply_markup=markup_settings)
+                else:
+                    bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="Here you can set the operating mode", reply_markup=markup_settings1)
 
             elif call.data == 'back':
                 #bot.delete_message(chat_id, message_id)

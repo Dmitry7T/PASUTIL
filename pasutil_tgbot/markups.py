@@ -29,6 +29,12 @@ markup_settings.row(button1)
 markup_settings.row(button2)
 markup_settings.row(button3)
 
+markup_settings1 = types.InlineKeyboardMarkup()
+button1 = types.InlineKeyboardButton(text='🛡️Change mod', callback_data='change_mod')
+button2 = types.InlineKeyboardButton(text='⬅️Back', callback_data='back')
+markup_settings1.row(button1)
+markup_settings1.row(button2)
+
 markup_time = types.InlineKeyboardMarkup()
 button1 = types.InlineKeyboardButton(text='1️⃣5️⃣ min', callback_data='saves15')
 button2 = types.InlineKeyboardButton(text='3️⃣0️⃣ min', callback_data='saves30')
