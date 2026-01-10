@@ -234,15 +234,6 @@ if __name__ == "__main__":
     # Пример: как бы вы использовали данные из MT5
     # Предположим, у вас есть функция get_mt5_candles(), которая возвращает массив свечей
     # mt5_candles = your_mt5_connection.get_candles("EURUSD", mt5.TIMEFRAME_M15, 100)
-    import MetaTrader5 as mt5
 
-    if not mt5.initialize():
-        print("initialize() failed", flush=True)
-        mt5.shutdown()
-    else:
-        print('Подключение установлено', flush=True)
-
-    from pasutil1.data_load import data_load
-    window.load_mt5_candles(data_load(symbol= "EURUSD"))
     
     sys.exit(app.exec())
