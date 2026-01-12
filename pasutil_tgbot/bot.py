@@ -25,7 +25,6 @@ dp = Dispatcher(bot, storage=storage)
 class Form(StatesGroup):
     waiting_for_message = State()
 
-# Обработчик сообщений в состоянии ожидания
 @dp.message_handler(state=Form.waiting_for_message)
 async def process_message(message: types.Message, state: FSMContext):
     if examination(message.text):
@@ -246,4 +245,5 @@ async def process_any_button_click(callback_query: types.CallbackQuery, state: F
 
 
 if __name__ == '__main__':
+
     executor.start_polling(dp, skip_updates=False)
