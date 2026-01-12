@@ -1,8 +1,6 @@
 from unittest.mock import call
 from aiogram import Bot, Dispatcher, types, executor
 from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
-from aiogram.dispatcher import FSMContext
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from values import *
 from config import *
 from markups import *
@@ -12,8 +10,6 @@ from top_pairs import start_top_pairs, top_pairs
 import requests
 from exchange_rate import exchange
 from examination_index import examination
-
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.utils import executor
@@ -247,3 +243,4 @@ async def process_any_button_click(callback_query: types.CallbackQuery, state: F
 if __name__ == '__main__':
 
     executor.start_polling(dp, skip_updates=False)
+
