@@ -19,6 +19,5 @@ markup_menu.add(button3, button4, button5, button6)
 callback_button = InlineKeyboardButton(text="⬅️Back", callback_data="back")
 markup_back = InlineKeyboardMarkup(inline_keyboard=[[callback_button]])
 
-# Pay Button
-callback_button = InlineKeyboardButton(text="Pay💵", callback_data="get_0.1")
-markup_payment = InlineKeyboardMarkup(inline_keyboard=[[callback_button]])
+callback_button = InlineKeyboardButton(text="Welcome", callback_data="back")
+markup_welcome = InlineKeyboardMarkup(inline_keyboard=[[callback_button]])

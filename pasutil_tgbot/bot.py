@@ -1,6 +1,8 @@
 from unittest.mock import call
 from aiogram import Bot, Dispatcher, types, executor
 from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.dispatcher import FSMContext
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from values import *
 from config import *
 from markups import *
@@ -10,6 +12,8 @@ from top_pairs import start_top_pairs, top_pairs
 import requests
 from exchange_rate import exchange
 from examination_index import examination
+
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.utils import executor
@@ -38,6 +42,15 @@ async def send_welcome(message: types.Message):
 @dp.message_handler(commands=['help'])
 async def send_welcome(message: types.Message):
     await message.answer(help_text, parse_mode="HTML")
+
+@dp.callback_query_handler(lambda c: c.data == "free")
+async def get_invoice(callback: CallbackQuery):
+    user_id = callback.from_user.id
+    if check_try_active(user_id):
+        activate_try(user_id)
+        await callback.message.edit_text("A seven-day trial period has been activated!", reply_markup=markup_welcome)
+    else:
+        await callback.message.edit_text("The trial period is already activated.")
 
 @dp.callback_query_handler(lambda c: c.data == "get_0.1")
 async def get_invoice(callback: CallbackQuery):
@@ -118,7 +131,7 @@ async def check_payment(callback: CallbackQuery):
 
                     await callback.message.answer(
                         "Payment completed!💸",
-                        reply_markup=markup_back
+                        reply_markup=markup_welcome
                     )
 
                     invoices.pop(chat_id, None)
@@ -233,14 +246,19 @@ async def process_any_button_click(callback_query: types.CallbackQuery, state: F
 
         else:
             await callback_query.message.delete()
+            markup_payment = InlineKeyboardMarkup(row_width=1)
+            if check_try_active(user_id):
+                button1 = InlineKeyboardButton(text="Pay💵", callback_data="get_0.1")
+                button2 = InlineKeyboardButton(text="FREE", callback_data="free")
+                markup_payment.add(button1, button2)
+            else:
+                button1 = InlineKeyboardButton(text="Pay💵", callback_data="get_0.1")
+                markup_payment.add(button1)
             await callback_query.message.answer("🤓To use our bot, you need a subscription. Please pay for it to continue.", reply_markup=markup_payment)
     except Exception as a:
         await callback_query.message.delete()
-        #bot.answer_callback_query(call.id)
         await bot.send_message(chat_id=teterev_admin, text=a)
 
 
 if __name__ == '__main__':
-
     executor.start_polling(dp, skip_updates=False)
-
