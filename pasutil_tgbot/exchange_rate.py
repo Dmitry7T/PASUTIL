@@ -1,6 +1,6 @@
 import json
 
-file = "pasutil1/jsons/saves.json"
+file = "saves.json"
 
 def exchange(index):
     with open(file, "r") as file_open:

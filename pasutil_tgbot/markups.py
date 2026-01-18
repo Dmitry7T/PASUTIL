@@ -1,56 +1,23 @@
-from telebot import types
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-markup_menu = types.InlineKeyboardMarkup()
-button1 = types.InlineKeyboardButton(text='👤Account', callback_data='account')
-button2 = types.InlineKeyboardButton(text='⚙️Settings', callback_data='stngs')
-button3 = types.InlineKeyboardButton(text='🔍Track everything', callback_data='trall')
-button4 = types.InlineKeyboardButton(text='🌊10 popular pairs', callback_data='10pp')
-button5 = types.InlineKeyboardButton(text='🎯Your own option', callback_data='yoop')
-button6 = types.InlineKeyboardButton(text='📑User agreement', callback_data='user_agreement')
-markup_menu.add(button1,button2)
-markup_menu.row(button3) 
-markup_menu.row(button4)
-markup_menu.row(button5)
-markup_menu.row(button6)
+# Get Started
+callback_button = InlineKeyboardButton(text="Get started🚀", callback_data="gs")
+start_keyboard = InlineKeyboardMarkup(inline_keyboard=[[callback_button]])
 
-#markup_stop = types.ReplyKeyboardMarkup()
-#button1 = types.KeyboardButton(text='Stop')
-#markup_stop.add(button1) 
+# Menu
+markup_menu = InlineKeyboardMarkup(row_width=1)
+button1 = InlineKeyboardButton(text="👤Account", callback_data="account")
+button2 = InlineKeyboardButton(text="⚙️Settings", callback_data="sb")
+button3 = InlineKeyboardButton(text="🔍Track everything", callback_data="trall")
+button4 = InlineKeyboardButton(text="🌊10 popular pairs", callback_data="10pp")
+button5 = InlineKeyboardButton(text="🎯Your own option", callback_data="yoop")
+button6 = InlineKeyboardButton(text="📑User agreement", callback_data="user_agreement")
+markup_menu.row(button1, button2)
+markup_menu.add(button3, button4, button5, button6)
 
-markup_start = types.InlineKeyboardMarkup()
-button1 = types.InlineKeyboardButton(text='Get started🚀', callback_data='gs')
-markup_start.add(button1)
+# Back
+callback_button = InlineKeyboardButton(text="⬅️Back", callback_data="back")
+markup_back = InlineKeyboardMarkup(inline_keyboard=[[callback_button]])
 
-markup_settings = types.InlineKeyboardMarkup()
-button1 = types.InlineKeyboardButton(text='⛔️Stop processing', callback_data='sp')
-button2 = types.InlineKeyboardButton(text='اللعنة، لم أتوصل إلى حل بعد.', callback_data='iweuf')
-button3 = types.InlineKeyboardButton(text='⬅️Back', callback_data='back')
-markup_settings.row(button1)
-markup_settings.row(button2)
-markup_settings.row(button3)
-
-markup_time = types.InlineKeyboardMarkup()
-button1 = types.InlineKeyboardButton(text='1️⃣5️⃣ min', callback_data='saves15')
-button2 = types.InlineKeyboardButton(text='3️⃣0️⃣ min', callback_data='saves30')
-button3 = types.InlineKeyboardButton(text='6️⃣0️⃣ min', callback_data='saves60')
-
-markup_time.add(button1,button2,button3)
-
-"""
-markup_subscribe = types.InlineKeyboardMarkup()
-button1 = types.InlineKeyboardButton(text='Pay for a subscription💳', url="https://t.me/pasutilchannel")
-button2 = types.InlineKeyboardButton(text='Check subscription✅', callback_data='ps')
-markup_subscribe.add(button1, button2)"""
-
-"""
-markup_pp = types.InlineKeyboardMarkup()
-button1 = types.InlineKeyboardButton(text='XAUUSD💲', callback_data='XAUUSD')
-markup_pp.add(button1)"""
-
-markup_back = types.InlineKeyboardMarkup()
-button1 = types.InlineKeyboardButton(text='⬅️Back', callback_data='back')
-markup_back.add(button1)
-
-markup_payment = types.InlineKeyboardMarkup()
-button1 = types.InlineKeyboardButton(text='Pay💵', callback_data='get_0.1')
-markup_payment.add(button1)
+callback_button = InlineKeyboardButton(text="Welcome", callback_data="back")
+markup_welcome = InlineKeyboardMarkup(inline_keyboard=[[callback_button]])

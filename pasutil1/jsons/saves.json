@@ -10,12 +10,12 @@
         "AUDCHF": {
             "signal": "BUY",
             "price": 0.52464,
-            "close": 24.52464,
+            "close": 24.52464, 
             "accuracy": 24.000000000001794,
             "date": "2025-11-04 17:30:00"
         },
         "AUDJPY": {
-            "signal": "SELL",
+            "signal": "SELL", 
             "price": 99.656,
             "close": 123.656,
             "accuracy": 17600.000000000193,

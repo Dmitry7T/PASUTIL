@@ -3,8 +3,8 @@ import telebot
 
 from datetime import datetime
 from time import sleep
-from pasutil_tgbot.database_control import File_db
-from pasutil_tgbot.config import TOKEN
+from database_control import File_db
+from config import TOKEN
 
 bot = telebot.TeleBot(TOKEN)
 
