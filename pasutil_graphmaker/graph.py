@@ -162,7 +162,7 @@ class MainWindow(QMainWindow):
         for i in range(len(mt5_candles_array)):
             # Предполагаем, что данные MT5 содержат time, open, high, low, close
             # Возможно, вам нужно адаптировать эту часть под ваш конкретный формат
-            candle = mt5_candles_array[i]
+            candle = mt5_candles_array.iloc[i]
             time = i
             open_price = candle['open']
             high_price = candle['high']
@@ -178,7 +178,8 @@ class MainWindow(QMainWindow):
 
     def log(self, message):
         """Добавляет сообщение в лог"""
-        self.log_text.append(f"[{self.counter}] {message}")
+        pass
+        #self.log_text.append(f"[{self.counter}] {message}")
 
 
 class Graph:
@@ -186,9 +187,25 @@ class Graph:
         self.app = QApplication(sys.argv)
         self.window = MainWindow()
         self.window.show()
+        sys.exit(self.app.exec())
 
     def load(self, data):
         self.window.load_mt5_candles(data)
 
     def exit(self):
         sys.exit(self.app.exec())
+
+from pasutil_AI.NN import SModel
+model = SModel().load_model("c:/Users/User/Desktop/All/Programming/PASUTIL/pasutil_AI/best_model.pth")
+import pandas as pd
+
+df = pd.read_csv("c:/Users/User/Desktop/All/Programming/PASUTIL/pasutil_AI/levels/GER30MM15/1.csv", header=None,
+                names=['datetime', 'open', 'high', 'low', 'close'],
+                date_format='%Y.%m.%d %H:%M')
+df['datetime'] = pd.to_datetime(df['datetime'], format='%Y.%m.%d %H:%M')
+df.set_index('datetime', inplace=True)
+
+df = df.apply(pd.to_numeric, errors='coerce')
+
+graph = Graph()
+graph.load(df)

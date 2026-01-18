@@ -1,5 +1,6 @@
 pasutil_AI/data/*.csv
 pasutil_AI/levels/*/
+pasutil_AI/models/*
 telegram_users.db
 # да я написал конфиг так, потому что его надо передвинуть в корневую папку
 config.py

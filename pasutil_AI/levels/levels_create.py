@@ -38,8 +38,8 @@ def create_subtables():
             output_dir.mkdir(exist_ok=True)
             
             # Параметры
-            window_size = 11520
-            step = 120  # Шаг теперь 120 строк вместо 1
+            window_size = 1920
+            step = 1920 
             file_counter = 1
             
             # Создаем подтаблицы

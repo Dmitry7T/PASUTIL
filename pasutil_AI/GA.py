@@ -8,7 +8,10 @@ class GA:
         self.mutation_rate = mutation_rate
         self.mutation_strength = mutation_strength
         self.population = population
-        self.bestmodel = SModel()
+        try:
+            self.bestmodel = SModel().load_model(path= "c:/Users/User/Desktop/All/Programming/PASUTIL/pasutil_AI/best_model.pth")
+        except:
+            self.bestmodel = SModel()
         self.simulation = Simulation()
 
     def mutate(self, model):
@@ -28,9 +31,9 @@ class GA:
         print("создание моделей", flush=True)
         models = []
         models.append(self.bestmodel)
-        for _ in range(self.population):
+        for _ in range(self.population - 1):
             models.append(self.mutate(self.bestmodel))
-        bestmodel = self.simulation.run_simulation(models)
-        bestmodel.save_model(path= "c:/Users/User/Desktop/All/Programming/PASUTIL/pasutil_AI/")
-        self.bestmodel = SModel().load_model(path= "c:/Users/User/Desktop/All/Programming/PASUTIL/pasutil_AI/")
+        bestmodel = self.simulation.simulation(models)
+        bestmodel.save_model(path= "c:/Users/User/Desktop/All/Programming/PASUTIL/pasutil_AI/best_model.pth")
+        self.bestmodel = SModel().load_model(path= "c:/Users/User/Desktop/All/Programming/PASUTIL/pasutil_AI/best_model.pth")
         return self.bestmodel
